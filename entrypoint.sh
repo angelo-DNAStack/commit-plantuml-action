@@ -51,6 +51,8 @@ git fetch
 echo "calculate GITHUB_SHA_AFTER"
 GITHUB_SHA_AFTER=$(git rev-parse origin/${GITHUB_HEAD_REF})
 echo "calculate diffs"
+echo "GITHUB_SHA: ${GITHUB_SHA}"
+echo "GITHUB_SHA_AFTER: ${GITHUB_SHA_AFTER}"
 DIFF_FILES=`git diff ${GITHUB_SHA} ${GITHUB_SHA_AFTER} --name-only | grep ".png"`
 echo $DIFF_FILES
 BODY="## Diagrams changed\n"
