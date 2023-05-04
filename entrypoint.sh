@@ -43,10 +43,14 @@ echo "comitted png files"
 
 # add review comment
 if [[ "${INPUT_ENABLEREVIEWCOMMENT}" != "true" ]]; then
+  echo "Not adding comment"
   exit 0
 fi
+echo "git fetch"
 git fetch
+echo "calculate GITHUB_SHA_AFTER"
 GITHUB_SHA_AFTER=$(git rev-parse origin/${GITHUB_HEAD_REF})
+echo "calculate diffs"
 DIFF_FILES=`git diff ${GITHUB_SHA} ${GITHUB_SHA_AFTER} --name-only | grep ".png"`
 echo $DIFF_FILES
 BODY="## Diagrams changed\n"
