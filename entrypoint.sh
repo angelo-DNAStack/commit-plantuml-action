@@ -17,8 +17,10 @@ fi
 # generate
 git config --global --add safe.directory ${GITHUB_WORKSPACE}
 cd ${GITHUB_WORKSPACE}
+echo "INFO: git fetch"
 git fetch
 SRC_FILES=$(git diff origin/${GITHUB_BASE_REF} --name-only | grep ".puml" || :)
+echo "INFO: source files: " + ${SRC_FILES}
 for SRC_FILE in ${SRC_FILES}; do
   java -jar /plantuml.jar $SRC_FILE -charset UTF-8
   echo "generate from $SRC_FILE"
@@ -32,7 +34,10 @@ git config user.name "${GITHUB_ACTOR}"
 git config user.email "${INPUT_BOTEMAIL}"
 git checkout ${GITHUB_HEAD_REF}
 git add .
+git status
+echo "INFO: git commit"
 git commit -m "add generated diagrams"
+echo "INFO: git push"
 git push origin HEAD:${GITHUB_HEAD_REF}
 echo "comitted png files"
 
