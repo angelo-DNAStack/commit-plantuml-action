@@ -52,8 +52,9 @@ echo "calculate GITHUB_SHA_AFTER"
 GITHUB_SHA_AFTER=$(git rev-parse origin/${GITHUB_HEAD_REF})
 echo "calculate diffs"
 echo "GITHUB_SHA: ${GITHUB_SHA}"
+echo "RELEVANT_SHA: ${RELEVANT_SHA}"
 echo "GITHUB_SHA_AFTER: ${GITHUB_SHA_AFTER}"
-DIFF_FILES=`git diff ${GITHUB_SHA} ${GITHUB_SHA_AFTER} --name-only | grep ".png"`
+DIFF_FILES=`git diff ${RELEVANT_SHA} ${GITHUB_SHA_AFTER} --name-only | grep ".png"`
 echo $DIFF_FILES
 BODY="## Diagrams changed\n"
 for DIFF_FILE in ${DIFF_FILES}; do
@@ -61,7 +62,7 @@ for DIFF_FILE in ${DIFF_FILES}; do
 ### [${DIFF_FILE}](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_SHA_AFTER}/${DIFF_FILE})\n
 <details><summary>Before</summary>\n
 \n
-![before](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_SHA}/${DIFF_FILE}?raw=true)\n
+![before](https://github.com/${GITHUB_REPOSITORY}/blob/${RELEVANT_SHA}/${DIFF_FILE}?raw=true)\n
 \n
 </details>\n
 \n
